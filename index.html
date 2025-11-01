@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Language of the Lion Numbers</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="assets/lion_logo.png" alt="Lion Logo" class="lion left-lion" />
+      <div class="title">
+        <h1>The language of the lion numbers</h1>
+        <p>لغة الأرقام الأسدّية</p>
+      </div>
+      <img src="assets/lion_logo.png" alt="Lion Logo" class="lion right-lion" />
+    </header>
+
+    <main>
+      <div class="input-area">
+        <h3>Input Text (Arabic/English)</h3>
+        <textarea id="input" placeholder="Type Arabic or English, or paste numbers..."></textarea>
+        <div class="buttons">
+          <button onclick="convertToTlon()">Ar,En.to.TLON</button>
+          <button onclick="convertToArabic()">TLON.to.Ar</button>
+          <button onclick="convertToEnglish()">TLON.to.En</button>
+        </div>
+        <p class="note">Separators: -2- between letters and -22- between words.</p>
+      </div>
+
+      <div class="output-area">
+        <h3>Output</h3>
+        <textarea id="output" readonly placeholder="Result appears here..."></textarea>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
