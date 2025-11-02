@@ -12,16 +12,16 @@ function convertToTlon() {
   const text = document.getElementById("input").value.trim();
   const words = text.split(/\s+/);
   const result = words.map(word =>
-    word.split("").map(ch => map[ch] || ch).join("-2-")
-  ).join("-22-");
+    word.split("").map(ch => map[ch] || ch).join("-0-")
+  ).join("-00-");
   document.getElementById("output").value = result;
 }
 
 function convertToArabic() {
   const text = document.getElementById("input").value.trim();
-  const words = text.split("-22-");
+  const words = text.split("-00-");
   const result = words.map(word =>
-    word.split("-2-").map(num => reverseMap[num] || num).join("")
+    word.split("-0-").map(num => reverseMap[num] || num).join("")
   ).join(" ");
   document.getElementById("output").value = result;
 }
