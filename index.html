@@ -37,5 +37,107 @@
   </div>
 
   <script src="script.js"></script>
+    <!-- Explanation buttons -->
+  <section class="explain-section">
+    <div class="explain-box" onclick="openArabicExplanation()">
+      <h4>شرح نظام هذه اللغة</h4>
+      <p>اضغط هنا لقراءة الشرح التفصيلي باللغة العربية</p>
+    </div>
+
+    <div class="explain-box" onclick="openEnglishExplanation()">
+      <h4>Explanation of this language system</h4>
+      <p>Click to read the full detailed explanation in English</p>
+    </div>
+  </section>
+
+  <!-- Arabic modal -->
+  <div id="arabicModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeArabicExplanation()">&times;</span>
+      <h2>شرح مفصّل لنظام "لغة الأرقام الأسدية"</h2>
+      <div class="modal-body">
+        <p><strong>فكرة النظام:</strong> هذا النظام يحول الحروف إلى أرقام ثابتة بحيث يمثل كل حرف بُرمز رقمى محدّد. الحروف العربية تمتد من 1 إلى 31 (شاملة ة، ؤ، ئ). الحروف الإنجليزية الصغيرة تتبع أرقامًا منفصلة كذلك، والحروف الكبيرة تُميّز بوضع فاصلة مفردة قبل رقمها (مثال: <code>'1</code> لـ A).</p>
+
+        <p><strong>الفواصل:</strong> بين كل حرف وآخر نستخدم <code>-0-</code>، وبين الكلمات نستخدم <code>-00-</code>. هذا يضمن أن كل حرف مهما كان رقمه (مؤلّف من خانة أو خانتين أو أكثر) يبقى معزولًا بوضوح عند فك الشفرة.</p>
+
+        <p><strong>قواعد التشفير:</strong></p>
+        <ul>
+          <li>اقسم النص إلى كلمات باستخدام المسافات.</li>
+          <li>لكل كلمة، حوّل كل حرف إلى رقمه المسند في الجدول.</li>
+          <li>ضع الفاصل <code>-0-</code> بين الأرقام الممثلة للحروف داخل الكلمة.</li>
+          <li>ضع الفاصل <code>-00-</code> بين الكلمات.</li>
+        </ul>
+
+        <p><strong>مثال عملي (عربي):</strong><br>
+        كلمة <em>الاسد</em> تتحول إلى: <code>1-0-23-0-1-0-12-0-8</code></p>
+
+        <p><strong>مثال عملي (إنجليزي):</strong><br>
+        اسم <em>Abdul</em> (A كبيرة) يعطى: <code>'1-0-2-0-4-0-21-0-12</code> (نفترض أرقام الحروف حسب خريطتك).</p>
+
+        <p><strong>فك الشفرة:</strong></p>
+        <ol>
+          <li>قسّم السلسلة على <code>-00-</code> للحصول على كلمات منفصلة.</li>
+          <li>لكل جزء، قسّم على <code>-0-</code> لتحصل على رموز الحروف.</li>
+          <li>حوّل كل رمز إلى حرفه المقابل باستخدام الجدول العكسي.</li>
+        </ol>
+
+        <p><strong>ملاحظات متقدمة:</strong></p>
+        <ul>
+          <li>التمييز بين الأحرف الكبيرة والصغيرة يحدث عبر بادئة الفاصلة المفردة للأحرف الكبيرة (يمكن تعديلها لو رغبت).</li>
+          <li>إذا رغبت بدعم علامات التشكيل أو الأرقام أو رموز خاصة، يمكن توسيع الخريطة بسهولة وإضافتها إلى النظام.</li>
+          <li>هذا النظام مناسب لمشاركة رسائل مشفّرة بشكل سريع أو لتضمينه في برمجياتك كلغة داخلية.</li>
+        </ul>
+
+        <p>لو تبي أدرج جدول الحروف الكامل داخل هذا المودال (بالعربية والإنجليزية) أقدر أضيفه مباشرة.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- English modal -->
+  <div id="englishModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEnglishExplanation()">&times;</span>
+      <h2>Detailed Explanation of the "Lion Numbers Language"</h2>
+      <div class="modal-body">
+        <p><strong>Concept:</strong> This system maps letters to fixed numeric tokens. Arabic letters use numbers 1–31 (including special forms like ة, ؤ, ئ). Lowercase English letters map to their own numbers; uppercase letters are marked with a leading apostrophe (e.g. <code>'1</code> for A) to distinguish them.</p>
+
+        <p><strong>Separators:</strong> We use <code>-0-</code> between letters and <code>-00-</code> between words. This ensures that multi-digit numbers remain intact and can be parsed unambiguously.</p>
+
+        <p><strong>Encoding rules:</strong></p>
+        <ul>
+          <li>Split text into words by spaces.</li>
+          <li>For each word, replace each character with its numeric token.</li>
+          <li>Join characters with <code>-0-</code> inside a word.</li>
+          <li>Join words with <code>-00-</code>.</li>
+        </ul>
+
+        <p><strong>Example (Arabic):</strong><br>
+        The word <em>الاسد</em> becomes: <code>1-0-23-0-1-0-12-0-8</code></p>
+
+        <p><strong>Example (English):</strong><br>
+        The name <em>Abdul</em> (capital A) becomes: <code>'1-0-2-0-4-0-21-0-12</code> (assuming your chosen mapping)</p>
+
+        <p><strong>Decoding steps:</strong></p>
+        <ol>
+          <li>Split by <code>-00-</code> to separate words.</li>
+          <li>Split each word by <code>-0-</code> into letter tokens.</li>
+          <li>Map each token back to its letter using the reverse table.</li>
+        </ol>
+
+        <p><strong>Advanced notes:</strong></p>
+        <ul>
+          <li>Upper/lowercase differentiation is done using the apostrophe prefix for uppercase tokens.</li>
+          <li>You can extend the mapping easily to include punctuation, digits, or additional characters.</li>
+          <li>This scheme is great for short secure messages or as an internal encoding for apps/games.</li>
+        </ul>
+
+        <p>If you want the full mapping table inserted here (Arabic + English), tell me and I'll include it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- include script at end -->
+  <script src="script.js"></script>
 </body>
 </html>
+
