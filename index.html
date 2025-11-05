@@ -12,21 +12,23 @@
       <img src="assets/lion_logo.png" alt="Lion Logo" class="lion left-lion" />
       <div class="title">
         <h1>The language of the lion numbers</h1>
-        <p>لغة الأرقام الأسدّية</p>
+        <p>لغة الأرقام الأسدية</p>
       </div>
       <img src="assets/lion_logo.png" alt="Lion Logo" class="lion right-lion" />
     </header>
 
     <main>
       <div class="input-area">
-        <h3>Input Text (Arabic/English)</h3>
-        <textarea id="input" placeholder="Type Arabic or English, or paste numbers..."></textarea>
+        <h3>Input Text (Arabic/English / TLON numbers)</h3>
+        <textarea id="input" placeholder="Type Arabic, English, or TLON numbers (use -0- between letters, -00- between words)..."></textarea>
+
         <div class="buttons">
-          <button onclick="convertToTlon()">Ar,En.to.TLON</button>
-          <button onclick="convertToArabic()">TLON.to.Ar</button>
-          <button onclick="convertToEnglish()">TLON.to.En</button>
+          <button id="btnEncode" onclick="convertToTlon()">Ar,En.to.TLON</button>
+          <button id="btnToAr" onclick="convertToArabic()">TLON.to.Ar</button>
+          <button id="btnToEn" onclick="convertToEnglish()">TLON.to.En</button>
         </div>
-        <p class="note">Separators: -0- between letters and -00- between words.</p>
+
+        <p class="note">Separators: <code>-0-</code> between letters and <code>-00-</code> between words.</p>
       </div>
 
       <div class="output-area">
@@ -36,115 +38,105 @@
     </main>
   </div>
 
-  <script src="script.js"></script>
-  <!-- Output Section -->
-<div>
-  <h3>Output</h3>
-  <textarea id="output" readonly placeholder="Result appears here..."></textarea>
-</div>
+  <!-- fixed footer with explanation boxes -->
+  <footer class="explain-section" role="contentinfo">
+    <div class="explain-box" onclick="openArabicExplanation()" aria-role="button" tabindex="0">
+      <h4>شرح نظام هذه اللغة</h4>
+      <p>اضغط هنا لقراءة الشرح التفصيلي باللغة العربية</p>
+    </div>
 
-<!-- Explanation Section (نقلناه تحت) -->
-<section class="explain-section">
-  <div class="explain-box" onclick="openArabicExplanation()">
-    <h4>شرح نظام هذه اللغة</h4>
-    <p>اضغط هنا لقراءة الشرح التفصيلي باللغة العربية</p>
-  </div>
+    <div class="explain-box" onclick="openEnglishExplanation()" aria-role="button" tabindex="0">
+      <h4>Explanation of this language system</h4>
+      <p>Click to read the full detailed explanation in English</p>
+    </div>
+  </footer>
 
-  <div class="explain-box" onclick="openEnglishExplanation()">
-    <h4>Explanation of this language system</h4>
-    <p>Click to read the full detailed explanation in English</p>
-  </div>
-</section>
-
-
-  <!-- Arabic modal -->
-  <div id="arabicModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeArabicExplanation()">&times;</span>
-      <h2>شرح مفصّل لنظام "لغة الأرقام الأسدية"</h2>
+  <!-- Arabic modal (RTL) -->
+  <div id="arabicModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="arabicTitle" dir="rtl">
+      <span class="close" onclick="closeArabicExplanation()" aria-label="Close">&times;</span>
+      <h2 id="arabicTitle">شرح مفصّل لنظام "لغة الأرقام الأسدية"</h2>
       <div class="modal-body">
-        <p><strong>فكرة النظام:</strong> هذا النظام يحول الحروف إلى أرقام ثابتة بحيث يمثل كل حرف بُرمز رقمى محدّد. الحروف العربية تمتد من 1 إلى 31 (شاملة ة، ؤ، ئ). الحروف الإنجليزية الصغيرة تتبع أرقامًا منفصلة كذلك، والحروف الكبيرة تُميّز بوضع فاصلة مفردة قبل رقمها (مثال: <code>'1</code> لـ A).</p>
+        <p><strong>فكرة النظام:</strong> يقوم هذا النظام بتحويل كل حرف من حروف اللغة العربية أو الإنجليزية إلى رمز عددي ثابت. الهدف هو تمثيل النصوص بصيغة رقمية قابلة للتخزين أو المعالجة أو التشفير.</p>
 
-        <p><strong>الفواصل:</strong> بين كل حرف وآخر نستخدم <code>-0-</code>، وبين الكلمات نستخدم <code>-00-</code>. هذا يضمن أن كل حرف مهما كان رقمه (مؤلّف من خانة أو خانتين أو أكثر) يبقى معزولًا بوضوح عند فك الشفرة.</p>
+        <p><strong>جدول الترميز (ملخص):</strong> الحروف العربية مُعيّنة أرقامًا من (1) فصاعدًا. الحروف الإنجليزية الصغيرة لها أرقام مُنفصلة، أما الحروف الكبيرة فتميّز ببادئة فاصلة مفردة <code>'</code> قبل الرقم (مثال: <code>'1</code> للحرف A الكبير).</p>
 
-        <p><strong>قواعد التشفير:</strong></p>
+        <p><strong>الفواصل المستخدمة:</strong></p>
         <ul>
-          <li>اقسم النص إلى كلمات باستخدام المسافات.</li>
-          <li>لكل كلمة، حوّل كل حرف إلى رقمه المسند في الجدول.</li>
-          <li>ضع الفاصل <code>-0-</code> بين الأرقام الممثلة للحروف داخل الكلمة.</li>
-          <li>ضع الفاصل <code>-00-</code> بين الكلمات.</li>
+          <li><code>-0-</code> بين رموز الحروف داخل الكلمة (يسمح بتمييز الأرقام متعددة الخانات).</li>
+          <li><code>-00-</code> بين الكلمات.</li>
         </ul>
 
-        <p><strong>مثال عملي (عربي):</strong><br>
-        كلمة <em>الاسد</em> تتحول إلى: <code>1-0-23-0-1-0-12-0-8</code></p>
-
-        <p><strong>مثال عملي (إنجليزي):</strong><br>
-        اسم <em>Abdul</em> (A كبيرة) يعطى: <code>'1-0-2-0-4-0-21-0-12</code> (نفترض أرقام الحروف حسب خريطتك).</p>
-
-        <p><strong>فك الشفرة:</strong></p>
+        <p><strong>قواعد التشفير خطوة بخطوة:</strong></p>
         <ol>
-          <li>قسّم السلسلة على <code>-00-</code> للحصول على كلمات منفصلة.</li>
-          <li>لكل جزء، قسّم على <code>-0-</code> لتحصل على رموز الحروف.</li>
-          <li>حوّل كل رمز إلى حرفه المقابل باستخدام الجدول العكسي.</li>
+          <li>قسّم النص إلى كلمات باستخدام المسافات.</li>
+          <li>لكل كلمة: استخرج الحروف بالترتيب وحول كل حرف إلى رقمه وفق الجدول.</li>
+          <li>ضع <code>-0-</code> بين كل رمز وآخر داخل نفس الكلمة.</li>
+          <li>ضع <code>-00-</code> بين الكلمات المختلفة.</li>
         </ol>
 
-        <p><strong>ملاحظات متقدمة:</strong></p>
+        <p><strong>أمثلة عملية:</strong></p>
         <ul>
-          <li>التمييز بين الأحرف الكبيرة والصغيرة يحدث عبر بادئة الفاصلة المفردة للأحرف الكبيرة (يمكن تعديلها لو رغبت).</li>
-          <li>إذا رغبت بدعم علامات التشكيل أو الأرقام أو رموز خاصة، يمكن توسيع الخريطة بسهولة وإضافتها إلى النظام.</li>
-          <li>هذا النظام مناسب لمشاركة رسائل مشفّرة بشكل سريع أو لتضمينه في برمجياتك كلغة داخلية.</li>
+          <li>النص العربي: <em>الاسد</em> → <code>1-0-23-0-1-0-12-0-8</code></li>
+          <li>النص الإنجليزي: <em>Abdul</em> (A كبيرة) → <code>'1-0-2-0-4-0-21-0-12</code></li>
         </ul>
 
-        <p>وصلى الله على نبينا محمد وعلى آله وصحبه أجمعين.git</p>
+        <p><strong>فك التشفير:</strong> لعكس العملية افعل بالعكس: قسم النص على <code>-00-</code> للحصول على الكلمات، ثم قسّم كل كلمة على <code>-0-</code> لتحصل على رموز الحروف، وحوّل كل رمز إلى الحرف المقابل وفق الجدول العكسي.</p>
+
+        <p><strong>ملاحظات مهمة:</strong></p>
+        <ul>
+          <li>النظام يميّز الحروف الإنجليزية الكبيرة عبر بادئة الفاصلة المفردة. عند تحويل TLON إلى عربي، ستظهر فقط الحروف العربية المشفرة؛ أما الرموز التي تمثل حروفًا إنجليزية فستُتَرجم فقط عند استخدام زر "TLON.to.En".</li>
+          <li>يمكن توسيع الخريطة لتشمل علامات الترقيم أو الأرقام أو الرموز الخاصة إذا رغبت.</li>
+          <li>احرص على استخدام الفواصل الدقيقة <code>-0-</code> و<code>-00-</code> لتفادي الغموض عند فك الشفرة.</li>
+        </ul>
+
+        <p>وصلى الله على نبينا محمد وعلى آله وصحبه أجمعين.</p>
       </div>
     </div>
   </div>
 
-  <!-- English modal -->
-  <div id="englishModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeEnglishExplanation()">&times;</span>
-      <h2>Detailed Explanation of the "Lion Numbers Language"</h2>
+  <!-- English modal (LTR) -->
+  <div id="englishModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="englishTitle" dir="ltr">
+      <span class="close" onclick="closeEnglishExplanation()" aria-label="Close">&times;</span>
+      <h2 id="englishTitle">Detailed Explanation of the "Lion Numbers Language"</h2>
       <div class="modal-body">
-        <p><strong>Concept:</strong> This system maps letters to fixed numeric tokens. Arabic letters use numbers 1–31 (including special forms like ة, ؤ, ئ). Lowercase English letters map to their own numbers; uppercase letters are marked with a leading apostrophe (e.g. <code>'1</code> for A) to distinguish them.</p>
+        <p><strong>Concept:</strong> This system maps each Arabic and English letter to a fixed numeric token. The goal is to represent text in a numeric format suitable for storage, processing or lightweight obfuscation.</p>
 
-        <p><strong>Separators:</strong> We use <code>-0-</code> between letters and <code>-00-</code> between words. This ensures that multi-digit numbers remain intact and can be parsed unambiguously.</p>
+        <p><strong>Encoding summary:</strong> Arabic letters are assigned numeric tokens starting from 1. Lowercase English letters have their own numeric tokens, while uppercase English letters are distinguished by a leading apostrophe <code>'</code> (for example <code>'1</code> for capital A).</p>
 
-        <p><strong>Encoding rules:</strong></p>
+        <p><strong>Separators:</strong></p>
         <ul>
-          <li>Split text into words by spaces.</li>
-          <li>For each word, replace each character with its numeric token.</li>
-          <li>Join characters with <code>-0-</code> inside a word.</li>
+          <li><code>-0-</code> separates letter tokens inside a word (keeps multi-digit tokens unambiguous).</li>
+          <li><code>-00-</code> separates words.</li>
+        </ul>
+
+        <p><strong>Encoding rules (step by step):</strong></p>
+        <ol>
+          <li>Split the text into words by spaces.</li>
+          <li>For each word: replace each character with its numeric token according to the mapping.</li>
+          <li>Join tokens inside a word with <code>-0-</code>.</li>
           <li>Join words with <code>-00-</code>.</li>
-        </ul>
-
-        <p><strong>Example (Arabic):</strong><br>
-        The word <em>الاسد</em> becomes: <code>1-0-23-0-1-0-12-0-8</code></p>
-
-        <p><strong>Example (English):</strong><br>
-        The name <em>Abdul</em> (capital A) becomes: <code>'1-0-2-0-4-0-21-0-12</code> (assuming your chosen mapping)</p>
-
-        <p><strong>Decoding steps:</strong></p>
-        <ol>
-          <li>Split by <code>-00-</code> to separate words.</li>
-          <li>Split each word by <code>-0-</code> into letter tokens.</li>
-          <li>Map each token back to its letter using the reverse table.</li>
         </ol>
 
-        <p><strong>Advanced notes:</strong></p>
+        <p><strong>Examples:</strong></p>
         <ul>
-          <li>Upper/lowercase differentiation is done using the apostrophe prefix for uppercase tokens.</li>
-          <li>You can extend the mapping easily to include punctuation, digits, or additional characters.</li>
-          <li>This scheme is great for short secure messages or as an internal encoding for apps/games.</li>
+          <li>Arabic word: <em>الاسد</em> → <code>1-0-23-0-1-0-12-0-8</code></li>
+          <li>English name: <em>Abdul</em> (capital A) → <code>'1-0-2-0-4-0-21-0-12</code></li>
         </ul>
 
-        <p>May God bless our Prophet Muhammad and his family and companions.</p>
+        <p><strong>Decoding:</strong> Split by <code>-00-</code> to get words, then split each word by <code>-0-</code> to get tokens, and map each token back to the corresponding character using the reverse table.</p>
+
+        <p><strong>Notes:</strong></p>
+        <ul>
+          <li>Uppercase/lowercase English are differentiated via the apostrophe prefix for uppercase tokens.</li>
+          <li>You can extend the mapping to include punctuation, digits, or other symbols.</li>
+          <li>This scheme is useful for lightweight encoding and consistent internal representation across Arabic and English text.</li>
+        </ul>
       </div>
     </div>
   </div>
 
-  <!-- include script at end -->
   <script src="script.js"></script>
 </body>
 </html>
-
