@@ -12,9 +12,9 @@ const englishMap = {
   'r':18,'s':19,'t':20,'u':21,'v':22,'w':23,'x':24,'y':25,'z':26
 };
 
-// تحويل الرقم إلى مفتاح (عكسي)
-const arabicReverse = Object.fromEntries(Object.entries(arabicMap).map(([k,v]) => [String(v), k]));
-const englishReverse = Object.fromEntries(Object.entries(englishMap).map(([k,v]) => [String(v), k]));
+// 🧭 خريطتين عكسية
+const arabicReverse = Object.fromEntries(Object.entries(arabicMap).map(([k, v]) => [String(v), k]));
+const englishReverse = Object.fromEntries(Object.entries(englishMap).map(([k, v]) => [String(v), k]));
 
 // 🧩 تحويل إلى TLON
 function convertToTlon() {
@@ -29,11 +29,13 @@ function convertToTlon() {
     for (const char of word) {
       if (arabicMap[char]) encodedLetters.push(arabicMap[char]);
       else if (englishMap[char.toLowerCase()]) {
-        if (char === char.toUpperCase() && char.match(/[A-Z]/))
+        if (char === char.toUpperCase() && /[A-Z]/.test(char))
           encodedLetters.push("'" + englishMap[char.toLowerCase()]);
-        else encodedLetters.push(englishMap[char.toLowerCase()]);
+        else
+          encodedLetters.push(englishMap[char.toLowerCase()]);
       }
     }
+
     result += encodedLetters.join('-0-');
     if (w < words.length - 1) result += '-00-';
   }
@@ -41,7 +43,7 @@ function convertToTlon() {
   document.getElementById('output').value = result;
 }
 
-// 🦁 TLON → Arabic
+// 🦁 TLON → Arabic (الإصلاح هنا)
 function convertToArabic() {
   const input = document.getElementById('input').value.trim();
   const words = input.split('-00-');
@@ -52,18 +54,22 @@ function convertToArabic() {
     let letters = '';
 
     for (const num of numbers) {
-      // 👇 هنا التعديل الذكي
-      if (arabicReverse[num]) letters += arabicReverse[num];
-      // لو مو موجود في العربية نخليه كما هو أو فراغ
-      else letters += '';
+      // 🔥 الفلتر الذكي: استخدم فقط خريطة العربية
+      if (arabicReverse.hasOwnProperty(num)) {
+        letters += arabicReverse[num];
+      } else {
+        // لو الرمز غير موجود، تجاهله
+        letters += '';
+      }
     }
+
     decodedWords.push(letters);
   }
 
   document.getElementById('output').value = decodedWords.join(' ');
 }
 
-// TLON → English
+// 🦁 TLON → English
 function convertToEnglish() {
   const input = document.getElementById('input').value.trim();
   const words = input.split('-00-');
@@ -77,8 +83,11 @@ function convertToEnglish() {
       if (num.startsWith("'")) {
         num = num.slice(1);
         if (englishReverse[num]) letters += englishReverse[num].toUpperCase();
-      } else if (englishReverse[num]) letters += englishReverse[num];
+      } else if (englishReverse[num]) {
+        letters += englishReverse[num];
+      }
     }
+
     decodedWords.push(letters);
   }
 
