@@ -93,3 +93,32 @@ function convertToEnglish() {
 
   document.getElementById('output').value = decodedWords.join(' ');
 }
+
+// فتح شرح عربي
+function openArabicExplanation() {
+  const modal = document.getElementById('arabicModal');
+  modal.style.display = 'block';
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+// إغلاق شرح عربي
+function closeArabicExplanation() {
+  const modal = document.getElementById('arabicModal');
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+// فتح شرح إنجليزي
+function openEnglishExplanation() {
+  const modal = document.getElementById('englishModal');
+  modal.style.display = 'block';
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+// إغلاق شرح إنجليزي
+function closeEnglishExplanation() {
+  const modal = document.getElementById('englishModal');
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+}
+
